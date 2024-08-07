@@ -11,6 +11,7 @@
     "@fastify/static": "^7.0.4",
     "@fastify/type-provider-typebox": "^4.0.0",
     "better-sqlite3": "^11.1.2",
+    "clsx": "^2.1.1",
     "concurrently": "^8.2.2",
     "daisyui": "^4.12.10",
     "esbuild": "^0.23.0",

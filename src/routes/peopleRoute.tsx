@@ -53,16 +53,44 @@ export const peopleRoute: FastifyPluginAsyncTypebox = async (app) => {
     {
       schema: {
         params: Type.Object({ personId: Type.String() }),
-        body: Type.Object({ nickname: Type.String() }),
+        body: Type.Object({
+          nickname: Type.String({ minLength: 1, maxLength: 5 }),
+        }),
       },
+      attachValidation: true,
     },
     async (req, res) => {
-      await db
-        .updateTable('person')
-        .set(req.body)
-        .where('id', '=', req.params.personId)
-        .executeTakeFirstOrThrow()
-      res.redirect('/people')
+      if (req.validationError) {
+        const errors = req.validationError.validation.reduce(
+          (errors: any, validation: any) => ({
+            ...errors,
+            [validation.instancePath.replace('/', '')]: validation.message,
+          }),
+          {} as any,
+        )
+        const person = await db
+          .selectFrom('person')
+          .selectAll()
+          .where('id', '=', req.params.personId)
+          .executeTakeFirstOrThrow()
+        res
+          .type('text/html')
+          .send(
+            renderToStaticMarkup(
+              <PeopleEdit
+                person={{ ...person, ...req.body }}
+                errors={errors}
+              />,
+            ),
+          )
+      } else {
+        await db
+          .updateTable('person')
+          .set(req.body)
+          .where('id', '=', req.params.personId)
+          .executeTakeFirstOrThrow()
+        res.redirect('/people')
+      }
     },
   )
 }
