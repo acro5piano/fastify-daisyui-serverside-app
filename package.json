@@ -2,21 +2,28 @@
   "name": "fastify-daisyui-serverside-app",
   "module": "src/app.ts",
   "scripts": {
-    "dev": "nodemon --ext ts,tsx --exec 'node -r esbuild-register src/app.ts'"
+    "dev": "concurrently pnpm:dev:*",
+    "dev:node": "nodemon --ext ts,tsx --exec 'node -r esbuild-register src/app.ts'",
+    "dev:css": "tailwindcss --watch -i ./src/styles/main.css -o ./static/main.min.css"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.11",
     "@types/bun": "latest",
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0"
+    "@types/react-dom": "^18.3.0",
+    "nodemon": "^3.1.4",
+    "tailwindcss": "^3.4.7"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
+    "@fastify/static": "^7.0.4",
     "@fastify/type-provider-typebox": "^4.0.0",
     "better-sqlite3": "^11.1.2",
+    "concurrently": "^8.2.2",
+    "daisyui": "^4.12.10",
     "esbuild": "^0.23.0",
     "esbuild-register": "^3.6.0",
     "fastify": "^4.28.1",

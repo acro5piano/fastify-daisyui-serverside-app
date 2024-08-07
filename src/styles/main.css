@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.da-select:focus,
+.da-select:focus-within,
+.da-input:focus,
+.da-input:focus-within,
+.da-textarea:focus,
+.da-textarea:focus-within {
+  outline-width: 1px !important;
+  outline-offset: 0px !important;
+  @apply outline-indigo-300;
+}
+
+.da-btn {
+  @apply px-8;
+}
+
+.da-btn-sm {
+  @apply px-5;
+}
+
+.da-btn-xs {
+  @apply px-4;
+}
+
+.da-btn-primary {
+  @apply text-white;
+}
+
+.da-tab {
+  @apply hover:bg-gray-200 !important;
+  @apply transition-all !important;
+  @apply rounded-t !important;
+}
+
+.da-tab-active {
+  @apply border-indigo-600 !important;
+}

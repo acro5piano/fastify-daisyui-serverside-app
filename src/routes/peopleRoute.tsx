@@ -29,15 +29,24 @@ export const peopleRoute: FastifyPluginAsyncTypebox = async (app) => {
     },
   )
 
-  app.get('/:personId', async (req, res) => {
-    const person = await db
-      .selectFrom('person')
-      .selectAll()
-      .executeTakeFirstOrThrow()
-    res
-      .type('text/html')
-      .send(renderToStaticMarkup(<PeopleEdit person={person} />))
-  })
+  app.get(
+    '/:personId',
+    {
+      schema: {
+        params: Type.Object({ personId: Type.String() }),
+      },
+    },
+    async (req, res) => {
+      const person = await db
+        .selectFrom('person')
+        .selectAll()
+        .where('id', '=', req.params.personId)
+        .executeTakeFirstOrThrow()
+      res
+        .type('text/html')
+        .send(renderToStaticMarkup(<PeopleEdit person={person} />))
+    },
+  )
 
   app.post(
     '/:personId',

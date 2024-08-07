@@ -1,4 +1,5 @@
 import type { Person } from '../../../types'
+import { Layout } from '../../Layout'
 
 type PeopleProps = {
   people: Person[]
@@ -6,21 +7,45 @@ type PeopleProps = {
 
 export const PeopleList: React.FC<PeopleProps> = ({ people }) => {
   return (
-    <div className="">
-      <a href="/people/new">Create</a>
+    <Layout>
       <div className="">
-        <table>
-          {people.map((person) => (
-            <tr key={person.id}>
-              <td>
-                <a href={`/people/${person.id}`}>{person.id}</a>
-              </td>
-              <td>{person.nickname}</td>
-              <td>{person.gender}</td>
-            </tr>
-          ))}
-        </table>
+        <div className="flex justify-end">
+          <a href="/people/new" className="da-btn da-btn-primary">
+            Create
+          </a>
+        </div>
+        <div className="">
+          <table className="da-table da-table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nickname</th>
+                <th>Gender</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {people.map((person) => (
+                <tr key={person.id}>
+                  <td>
+                    <a href={`/people/${person.id}`}>{person.id}</a>
+                  </td>
+                  <td>{person.nickname}</td>
+                  <td>{person.gender}</td>
+                  <td>
+                    <a
+                      className="da-btn da-btn-xs"
+                      href={`/people/${person.id}`}
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }
