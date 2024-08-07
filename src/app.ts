@@ -1,5 +1,14 @@
 import Fastify from 'fastify'
+import { peopleRoute } from './routes/peopleRoute'
+import { migrateUp } from './db'
+import fastifyFormbody from '@fastify/formbody'
+import type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 
-const app = Fastify({ logger: true })
+const app = Fastify({ logger: true }).withTypeProvider<TypeBoxTypeProvider>()
 
-app.listen({ port: 8000, host: '0.0.0.0' })
+app.register(fastifyFormbody)
+app.register(peopleRoute, { prefix: '/people' })
+
+app.listen({ port: 8000, host: '0.0.0.0' }).then(async () => {
+  await migrateUp()
+})
