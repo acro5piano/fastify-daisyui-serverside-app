@@ -28,7 +28,7 @@ export const PeopleList: React.FC<PeopleProps> = ({ people }) => {
               {people.map((person) => (
                 <tr key={person.id}>
                   <td>
-                    <a href={`/people/${person.id}`}>{person.id}</a>
+                    <code>{person.id}</code>
                   </td>
                   <td>{person.nickname}</td>
                   <td>{person.gender}</td>
