@@ -3,7 +3,7 @@ import SQLite from 'better-sqlite3'
 import { Kysely, sql, SqliteDialect } from 'kysely'
 
 const dialect = new SqliteDialect({
-  database: new SQLite(':memory:'),
+  database: new SQLite('./local.db'),
 })
 
 export const db = new Kysely<Database>({
@@ -13,6 +13,7 @@ export const db = new Kysely<Database>({
 export async function migrateUp() {
   await db.schema
     .createTable('person')
+    .ifNotExists()
     .addColumn('id', 'uuid', (col) =>
       col.notNull().defaultTo(sql`(lower(hex(randomblob(8))))`),
     )

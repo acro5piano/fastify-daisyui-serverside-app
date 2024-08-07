@@ -12,7 +12,9 @@ export const PeopleList: React.FC<PeopleProps> = ({ people }) => {
         <table>
           {people.map((person) => (
             <tr key={person.id}>
-              <td>{person.id}</td>
+              <td>
+                <a href={`/people/${person.id}`}>{person.id}</a>
+              </td>
               <td>{person.nickname}</td>
               <td>{person.gender}</td>
             </tr>

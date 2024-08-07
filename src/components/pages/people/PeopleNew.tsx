@@ -1,5 +1,3 @@
-import type { Person } from '../../../types'
-
 export const PeopleNew: React.FC<{}> = () => {
   return (
     <div className="">
